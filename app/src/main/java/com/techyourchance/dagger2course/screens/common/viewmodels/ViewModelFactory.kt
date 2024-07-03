@@ -17,7 +17,11 @@ class ViewModelFactory @Inject constructor(
         savedStateRegistryOwner: SavedStateRegistryOwner
 ): AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
 
-    override fun <T : ViewModel?> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T {
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
         val provider = providersMap[modelClass]
         val viewModel = provider?.get() ?: throw RuntimeException("unsupported viewmodel type: $modelClass")
         if (viewModel is SavedStateViewModel) {
